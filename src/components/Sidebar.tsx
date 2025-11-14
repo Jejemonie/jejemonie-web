@@ -3,27 +3,13 @@
 import { useState } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import {
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
-  IconButton,
-  Box,
-  Divider,
-  Avatar,
-  Typography,
-  Tooltip
-} from '@mui/material'
-import {
-  Dashboard as DashboardIcon,
-  AccountBalance as BudgetIcon,
-  Link as IntegrationIcon,
-  Settings as SettingsIcon,
-  Menu as MenuIcon,
-  ChevronLeft as ChevronLeftIcon
-} from '@mui/icons-material'
+  Home,
+  Wallet,
+  Link,
+  Settings,
+  Menu,
+  ChevronLeft
+} from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 
 const DRAWER_WIDTH = 280
@@ -36,20 +22,33 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
-  { text: 'Budget', icon: <BudgetIcon />, path: '/budget' },
-  { text: 'Integrations', icon: <IntegrationIcon />, path: '/integrations' },
+  { text: 'Dashboard', icon: <Home className="h-5 w-5" />, path: '/dashboard' },
+  { text: 'Budget', icon: <Wallet className="h-5 w-5" />, path: '/budget' },
+  { text: 'Integrations', icon: <Link className="h-5 w-5" />, path: '/integrations' },
 ]
 
 const bottomNavItems: NavItem[] = [
-  { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
+  { text: 'Settings', icon: <Settings className="h-5 w-5" />, path: '/settings' },
 ]
 
 export function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false)
+  const [collapsed, setCollapsed] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('sidebar-collapsed') === 'true'
+    }
+    return false
+  })
   const router = useRouter()
   const pathname = usePathname()
   const { user, logout } = useAuth()
+
+  const toggleCollapsed = () => {
+    const newCollapsed = !collapsed
+    setCollapsed(newCollapsed)
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('sidebar-collapsed', newCollapsed.toString())
+    }
+  }
 
   const handleNavigation = (path: string) => {
     router.push(path)
@@ -61,111 +60,72 @@ export function Sidebar() {
   }
 
   return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: collapsed ? COLLAPSED_WIDTH : DRAWER_WIDTH,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: collapsed ? COLLAPSED_WIDTH : DRAWER_WIDTH,
-          boxSizing: 'border-box',
-          transition: 'width 0.3s ease',
-          borderRight: '1px solid #e0e0e0',
-          backgroundColor: '#fafafa',
-        },
-      }}
+    <div 
+      className={`fixed left-0 top-0 h-full bg-gray-50 border-r border-gray-200 transition-all duration-300 z-40 ${
+        collapsed ? 'w-18' : 'w-70'
+      }`}
+      style={{ width: collapsed ? COLLAPSED_WIDTH : DRAWER_WIDTH }}
     >
       {/* Header */}
-      <Box className="flex items-center justify-between p-4 min-h-[64px]">
+      <div className="flex items-center justify-between p-4 min-h-[64px]">
         {!collapsed && (
-          <Typography variant="h6" className="font-bold text-blue-600">
+          <h1 className="text-lg font-bold text-orange-500">
             SmartBudget AI
-          </Typography>
+          </h1>
         )}
-        <IconButton onClick={() => setCollapsed(!collapsed)} size="small">
-          {collapsed ? <MenuIcon /> : <ChevronLeftIcon />}
-        </IconButton>
-      </Box>
+        <button onClick={toggleCollapsed} className="p-2 hover:bg-gray-100 rounded-lg">
+          {collapsed ? <Menu className="h-5 w-5" /> : <ChevronLeft className="h-5 w-5" />}
+        </button>
+      </div>
 
-      <Divider />
-
-      {/* User Profile */}
-      <Box className="p-4">
-        <Box className="flex items-center gap-3">
-          <Avatar className="bg-blue-500">
-            {user?.name?.charAt(0).toUpperCase()}
-          </Avatar>
-          {!collapsed && (
-            <Box>
-              <Typography variant="subtitle2" className="font-medium">
-                {user?.name}
-              </Typography>
-              <Typography variant="caption" className="text-gray-500">
-                {user?.email}
-              </Typography>
-            </Box>
-          )}
-        </Box>
-      </Box>
-
-      <Divider />
+      <hr className="border-gray-200" />
 
       {/* Navigation Items */}
-      <List className="flex-1 px-2">
+      <div className="flex-1 px-2 py-2">
         {navItems.map((item) => (
-          <ListItem key={item.text} disablePadding className="mb-1">
-            <Tooltip title={collapsed ? item.text : ''} placement="right">
-              <ListItemButton
-                onClick={() => handleNavigation(item.path)}
-                className={`rounded-lg mx-1 ${
-                  pathname === item.path
-                    ? 'bg-blue-100 text-blue-600'
-                    : 'hover:bg-gray-100'
-                }`}
-                sx={{ minHeight: 48 }}
-              >
-                <ListItemIcon
-                  className={pathname === item.path ? 'text-blue-600' : 'text-gray-600'}
-                  sx={{ minWidth: collapsed ? 'auto' : 40 }}
-                >
-                  {item.icon}
-                </ListItemIcon>
-                {!collapsed && <ListItemText primary={item.text} />}
-              </ListItemButton>
-            </Tooltip>
-          </ListItem>
+          <div key={item.text} className="mb-1">
+            <button
+              onClick={() => handleNavigation(item.path)}
+              className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
+                pathname === item.path
+                  ? 'bg-orange-100 text-orange-600'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+              title={collapsed ? item.text : ''}
+            >
+              <span className={pathname === item.path ? 'text-orange-600' : 'text-gray-600'}>
+                {item.icon}
+              </span>
+              {!collapsed && <span className="text-sm font-medium">{item.text}</span>}
+            </button>
+          </div>
         ))}
-      </List>
+      </div>
 
       {/* Bottom Navigation */}
-      <Box>
-        <Divider />
-        <List className="px-2 pb-2">
+      <div>
+        <hr className="border-gray-200" />
+        <div className="px-2 py-2">
           {bottomNavItems.map((item) => (
-            <ListItem key={item.text} disablePadding className="mb-1">
-              <Tooltip title={collapsed ? item.text : ''} placement="right">
-                <ListItemButton
-                  onClick={() => handleNavigation(item.path)}
-                  className={`rounded-lg mx-1 ${
-                    pathname === item.path
-                      ? 'bg-blue-100 text-blue-600'
-                      : 'hover:bg-gray-100'
-                  }`}
-                  sx={{ minHeight: 48 }}
-                >
-                  <ListItemIcon
-                    className={pathname === item.path ? 'text-blue-600' : 'text-gray-600'}
-                    sx={{ minWidth: collapsed ? 'auto' : 40 }}
-                  >
-                    {item.icon}
-                  </ListItemIcon>
-                  {!collapsed && <ListItemText primary={item.text} />}
-                </ListItemButton>
-              </Tooltip>
-            </ListItem>
+            <div key={item.text} className="mb-1">
+              <button
+                onClick={() => handleNavigation(item.path)}
+                className={`w-full flex items-center gap-3 px-3 py-3 rounded-lg transition-colors ${
+                  pathname === item.path
+                    ? 'bg-orange-100 text-orange-600'
+                    : 'text-gray-600 hover:bg-gray-100'
+                }`}
+                title={collapsed ? item.text : ''}
+              >
+                <span className={pathname === item.path ? 'text-orange-600' : 'text-gray-600'}>
+                  {item.icon}
+                </span>
+                {!collapsed && <span className="text-sm font-medium">{item.text}</span>}
+              </button>
+            </div>
           ))}
-        </List>
-      </Box>
-    </Drawer>
+        </div>
+      </div>
+    </div>
   )
 }

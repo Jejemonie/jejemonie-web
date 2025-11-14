@@ -12,7 +12,7 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('auth_token');
+    const token = sessionStorage.getItem('auth_token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -25,7 +25,7 @@ export const authApi = {
     const response = await api.post<AuthResponse>('/auth/login', { email, password });
     const token = response.data.access_token;
     if (typeof window !== 'undefined') {
-      localStorage.setItem('auth_token', token);
+      sessionStorage.setItem('auth_token', token);
     }
     return token;
   },
@@ -34,7 +34,7 @@ export const authApi = {
     const response = await api.post<AuthResponse>('/auth/signup', { email, password, name });
     const token = response.data.access_token;
     if (typeof window !== 'undefined') {
-      localStorage.setItem('auth_token', token);
+      sessionStorage.setItem('auth_token', token);
     }
     return token;
   },
@@ -46,7 +46,7 @@ export const authApi = {
 
   logout: () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('auth_token');
+      sessionStorage.removeItem('auth_token');
     }
   }
 };

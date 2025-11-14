@@ -3,25 +3,42 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '../hooks/useAuth'
-import { AuthWrapper } from '../components/AuthWrapper'
+import { Navbar } from '../components/Navbar'
+import { Hero } from '../components/landing/Hero'
+import { Features } from '../components/landing/Features'
+import { Benefits } from '../components/landing/Benefits'
+import { CTASection } from '../components/landing/CTASection'
+import { Footer } from '../components/landing/Footer'
 
-export default function Home() {
-  const { user, loading } = useAuth()
+export default function HomePage() {
+  const { user } = useAuth()
   const router = useRouter()
 
   useEffect(() => {
-    if (!loading && user) {
-      router.push('/dashboard')
+    if (user) {
+      router.replace('/dashboard')
     }
-  }, [user, loading, router])
+  }, [user, router])
 
-  if (loading) {
+  if (user) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-500"></div>
-      </div>
+      <>
+        <Navbar />
+        <div className="flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-orange-500"></div>
+        </div>
+      </>
     )
   }
 
-  return <AuthWrapper />
+  return (
+    <>
+      <Navbar />
+      <Hero />
+      <Features />
+      <Benefits />
+      <CTASection />
+      <Footer />
+    </>
+  )
 }

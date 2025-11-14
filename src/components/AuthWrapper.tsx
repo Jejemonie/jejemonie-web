@@ -1,33 +1,19 @@
 'use client'
 
 import { useState } from 'react'
-import { ThemeProvider, createTheme } from '@mui/material/styles'
-import CssBaseline from '@mui/material/CssBaseline'
-import { Login } from '../pages/Login'
-import { Signup } from '../pages/Signup'
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2',
-    },
-    secondary: {
-      main: '#dc004e',
-    },
-  },
-})
 
 export function AuthWrapper() {
   const [isLogin, setIsLogin] = useState(true)
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      {isLogin ? (
-        <Login onSwitchToSignup={() => setIsLogin(false)} />
-      ) : (
-        <Signup onSwitchToLogin={() => setIsLogin(true)} />
-      )}
-    </ThemeProvider>
+    <div className="min-h-screen bg-gray-50">
+      {/* This component can be simplified or removed since login/signup are separate pages */}
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">SmartBudget AI</h1>
+          <p className="text-gray-600">Please use the login or signup pages directly.</p>
+        </div>
+      </div>
+    </div>
   )
 }

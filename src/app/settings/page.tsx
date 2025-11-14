@@ -1,363 +1,306 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 import {
-  Box,
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  TextField,
-  Button,
-  Switch,
-  FormControlLabel,
-  Divider,
-  Avatar,
-  IconButton,
-  Alert,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-} from '@mui/material'
-import {
-  Edit as EditIcon,
-  Logout as LogoutIcon,
-  Delete as DeleteIcon,
-  Security as SecurityIcon,
-  Notifications as NotificationsIcon,
-} from '@mui/icons-material'
-import { DashboardLayout } from '../../components/DashboardLayout'
-import { useAuth } from '../../hooks/useAuth'
+  MoonIcon,
+  SunIcon,
+  BellIcon,
+  GlobeIcon,
+  ShieldIcon,
+  KeyIcon,
+  TrashIcon,
+  LogOutIcon,
+  CheckIcon,
+} from 'lucide-react'
 
 export default function SettingsPage() {
-  const { user, logout } = useAuth()
-  const router = useRouter()
-  const [editMode, setEditMode] = useState(false)
-  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
-  const [profileData, setProfileData] = useState({
-    name: user?.name || '',
-    email: user?.email || '',
-  })
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+  const [language, setLanguage] = useState('english')
   const [notifications, setNotifications] = useState({
-    emailAlerts: true,
-    pushNotifications: true,
-    weeklyReports: false,
-    budgetAlerts: true,
+    email: true,
+    push: true,
+    sms: false,
+    marketing: false,
   })
 
-  const handleProfileSave = () => {
-    // TODO: Implement API call to update profile
-    console.log('Saving profile:', profileData)
-    setEditMode(false)
-  }
-
-  const handleLogout = () => {
-    logout()
-    router.push('/login')
-  }
-
-  const handleDeleteAccount = () => {
-    // TODO: Implement account deletion
-    console.log('Deleting account')
-    setDeleteDialogOpen(false)
-  }
-
-  const handleNotificationChange = (key: string, value: boolean) => {
-    setNotifications(prev => ({ ...prev, [key]: value }))
+  const handleNotificationToggle = (key: keyof typeof notifications) => {
+    setNotifications({
+      ...notifications,
+      [key]: !notifications[key],
+    })
   }
 
   return (
-    <DashboardLayout>
-      <Box className="max-w-4xl mx-auto space-y-6">
-        {/* Header */}
-        <Box>
-          <Typography variant="h4" className="font-bold text-gray-900 mb-2">
-            Settings
-          </Typography>
-          <Typography variant="body1" className="text-gray-600">
-            Manage your account settings and preferences
-          </Typography>
-        </Box>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Settings</h1>
+          <p className="text-gray-600 mt-2">
+            Manage your app preferences and account settings
+          </p>
+        </div>
 
-        <Grid container spacing={3}>
-          {/* Profile Settings */}
-          <Grid item xs={12} md={8}>
-            <Card>
-              <CardContent className="p-6">
-                <Box className="flex items-center justify-between mb-6">
-                  <Typography variant="h6" className="font-semibold">
-                    Profile Information
-                  </Typography>
-                  <IconButton onClick={() => setEditMode(!editMode)}>
-                    <EditIcon />
-                  </IconButton>
-                </Box>
-
-                <Box className="flex items-center gap-4 mb-6">
-                  <Avatar className="w-16 h-16 bg-blue-500 text-xl">
-                    {user?.name?.charAt(0).toUpperCase()}
-                  </Avatar>
-                  <Box>
-                    <Typography variant="h6" className="font-medium">
-                      {user?.name}
-                    </Typography>
-                    <Typography variant="body2" className="text-gray-600">
-                      {user?.email}
-                    </Typography>
-                  </Box>
-                </Box>
-
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Full Name"
-                      value={profileData.name}
-                      onChange={(e) => setProfileData(prev => ({ ...prev, name: e.target.value }))}
-                      disabled={!editMode}
-                    />
-                  </Grid>
-                  <Grid item xs={12} sm={6}>
-                    <TextField
-                      fullWidth
-                      label="Email Address"
-                      value={profileData.email}
-                      onChange={(e) => setProfileData(prev => ({ ...prev, email: e.target.value }))}
-                      disabled={!editMode}
-                    />
-                  </Grid>
-                </Grid>
-
-                {editMode && (
-                  <Box className="flex gap-3 mt-6">
-                    <Button
-                      variant="outlined"
-                      onClick={() => setEditMode(false)}
-                    >
-                      Cancel
-                    </Button>
-                    <Button
-                      variant="contained"
-                      onClick={handleProfileSave}
-                      className="bg-blue-600 hover:bg-blue-700"
-                    >
-                      Save Changes
-                    </Button>
-                  </Box>
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Quick Actions */}
-          <Grid item xs={12} md={4}>
-            <Card>
-              <CardContent className="p-6">
-                <Typography variant="h6" className="font-semibold mb-4">
-                  Quick Actions
-                </Typography>
-                
-                <Box className="space-y-3">
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    startIcon={<SecurityIcon />}
-                    className="justify-start"
+        <div className="space-y-6">
+          {/* Appearance */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              {theme === 'light' ? (
+                <SunIcon className="h-5 w-5 mr-2 text-yellow-500" />
+              ) : (
+                <MoonIcon className="h-5 w-5 mr-2 text-blue-500" />
+              )}
+              Appearance
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-3">
+                  Theme
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  <button
+                    onClick={() => setTheme('light')}
+                    className={`flex items-center justify-center p-4 border-2 rounded-lg transition-all ${
+                      theme === 'light'
+                        ? 'border-orange-500 bg-orange-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
                   >
-                    Change Password
-                  </Button>
-                  
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    startIcon={<LogoutIcon />}
-                    onClick={handleLogout}
-                    className="justify-start"
+                    <SunIcon className="h-5 w-5 mr-2" />
+                    <span className="font-medium">Light</span>
+                    {theme === 'light' && (
+                      <CheckIcon className="h-5 w-5 ml-2 text-orange-500" />
+                    )}
+                  </button>
+                  <button
+                    onClick={() => setTheme('dark')}
+                    className={`flex items-center justify-center p-4 border-2 rounded-lg transition-all ${
+                      theme === 'dark'
+                        ? 'border-orange-500 bg-orange-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
                   >
-                    Sign Out
-                  </Button>
-                  
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    startIcon={<DeleteIcon />}
-                    onClick={() => setDeleteDialogOpen(true)}
-                    className="justify-start text-red-600 border-red-600 hover:bg-red-50"
-                  >
-                    Delete Account
-                  </Button>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
+                    <MoonIcon className="h-5 w-5 mr-2" />
+                    <span className="font-medium">Dark</span>
+                    {theme === 'dark' && (
+                      <CheckIcon className="h-5 w-5 ml-2 text-orange-500" />
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          {/* Notification Settings */}
-          <Grid item xs={12}>
-            <Card>
-              <CardContent className="p-6">
-                <Box className="flex items-center gap-2 mb-6">
-                  <NotificationsIcon className="text-blue-600" />
-                  <Typography variant="h6" className="font-semibold">
-                    Notification Preferences
-                  </Typography>
-                </Box>
+          {/* Notifications */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <BellIcon className="h-5 w-5 mr-2 text-orange-500" />
+              Notifications
+            </h2>
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">
+                    Email Notifications
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    Receive budget alerts via email
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={notifications.email}
+                    onChange={() => handleNotificationToggle('email')}
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                </label>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">
+                    Push Notifications
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    Receive push notifications on your device
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={notifications.push}
+                    onChange={() => handleNotificationToggle('push')}
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                </label>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">
+                    SMS Notifications
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    Receive text message notifications
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={notifications.sms}
+                    onChange={() => handleNotificationToggle('sms')}
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                </label>
+              </div>
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-900">
+                    Budget Tips & Insights
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    Receive AI-powered financial insights
+                  </p>
+                </div>
+                <label className="relative inline-flex items-center cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={notifications.marketing}
+                    onChange={() => handleNotificationToggle('marketing')}
+                  />
+                  <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-orange-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-orange-500"></div>
+                </label>
+              </div>
+            </div>
+          </div>
 
-                <Grid container spacing={3}>
-                  <Grid item xs={12} sm={6}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={notifications.emailAlerts}
-                          onChange={(e) => handleNotificationChange('emailAlerts', e.target.checked)}
-                        />
-                      }
-                      label={
-                        <Box>
-                          <Typography variant="body2" className="font-medium">
-                            Email Alerts
-                          </Typography>
-                          <Typography variant="caption" className="text-gray-600">
-                            Receive transaction alerts via email
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                  </Grid>
+          {/* Language & Region */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <GlobeIcon className="h-5 w-5 mr-2 text-orange-500" />
+              Language & Region
+            </h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Language
+                </label>
+                <select
+                  value={language}
+                  onChange={(e) => setLanguage(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                >
+                  <option value="english">English</option>
+                  <option value="spanish">Spanish</option>
+                  <option value="french">French</option>
+                  <option value="german">German</option>
+                  <option value="chinese">Chinese</option>
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Currency
+                </label>
+                <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent">
+                  <option value="usd">USD ($)</option>
+                  <option value="eur">EUR (€)</option>
+                  <option value="gbp">GBP (£)</option>
+                  <option value="jpy">JPY (¥)</option>
+                </select>
+              </div>
+            </div>
+          </div>
 
-                  <Grid item xs={12} sm={6}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={notifications.pushNotifications}
-                          onChange={(e) => handleNotificationChange('pushNotifications', e.target.checked)}
-                        />
-                      }
-                      label={
-                        <Box>
-                          <Typography variant="body2" className="font-medium">
-                            Push Notifications
-                          </Typography>
-                          <Typography variant="caption" className="text-gray-600">
-                            Get instant notifications on your device
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} sm={6}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={notifications.weeklyReports}
-                          onChange={(e) => handleNotificationChange('weeklyReports', e.target.checked)}
-                        />
-                      }
-                      label={
-                        <Box>
-                          <Typography variant="body2" className="font-medium">
-                            Weekly Reports
-                          </Typography>
-                          <Typography variant="caption" className="text-gray-600">
-                            Receive weekly spending summaries
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                  </Grid>
-
-                  <Grid item xs={12} sm={6}>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={notifications.budgetAlerts}
-                          onChange={(e) => handleNotificationChange('budgetAlerts', e.target.checked)}
-                        />
-                      }
-                      label={
-                        <Box>
-                          <Typography variant="body2" className="font-medium">
-                            Budget Alerts
-                          </Typography>
-                          <Typography variant="caption" className="text-gray-600">
-                            Get notified when approaching budget limits
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-
-          {/* Security & Privacy */}
-          <Grid item xs={12}>
-            <Card>
-              <CardContent className="p-6">
-                <Typography variant="h6" className="font-semibold mb-4">
-                  Security & Privacy
-                </Typography>
-                
-                <Alert severity="info" className="mb-4">
-                  Your data is encrypted and secure. We never share your personal information with third parties.
-                </Alert>
-
-                <Box className="space-y-4">
-                  <Box>
-                    <Typography variant="body2" className="font-medium mb-1">
+          {/* Privacy & Security */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+              <ShieldIcon className="h-5 w-5 mr-2 text-orange-500" />
+              Privacy & Security
+            </h2>
+            <div className="space-y-3">
+              <button className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <div className="flex items-center">
+                  <KeyIcon className="h-5 w-5 mr-3 text-gray-600" />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-gray-900">
+                      Change Password
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      Update your password
+                    </p>
+                  </div>
+                </div>
+                <span className="text-gray-400">→</span>
+              </button>
+              <button className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <div className="flex items-center">
+                  <ShieldIcon className="h-5 w-5 mr-3 text-gray-600" />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-gray-900">
                       Two-Factor Authentication
-                    </Typography>
-                    <Typography variant="caption" className="text-gray-600 mb-2 block">
-                      Add an extra layer of security to your account
-                    </Typography>
-                    <Button variant="outlined" size="small">
-                      Enable 2FA
-                    </Button>
-                  </Box>
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      Add an extra layer of security
+                    </p>
+                  </div>
+                </div>
+                <span className="text-gray-400">→</span>
+              </button>
+              <button className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <div className="flex items-center">
+                  <ShieldIcon className="h-5 w-5 mr-3 text-gray-600" />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-gray-900">
+                      Privacy Settings
+                    </p>
+                    <p className="text-xs text-gray-600">
+                      Manage your data and privacy
+                    </p>
+                  </div>
+                </div>
+                <span className="text-gray-400">→</span>
+              </button>
+            </div>
+          </div>
 
-                  <Divider />
-
-                  <Box>
-                    <Typography variant="body2" className="font-medium mb-1">
-                      Data Export
-                    </Typography>
-                    <Typography variant="caption" className="text-gray-600 mb-2 block">
-                      Download all your data in a portable format
-                    </Typography>
-                    <Button variant="outlined" size="small">
-                      Export Data
-                    </Button>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-
-        {/* Delete Account Dialog */}
-        <Dialog open={deleteDialogOpen} onClose={() => setDeleteDialogOpen(false)}>
-          <DialogTitle>Delete Account</DialogTitle>
-          <DialogContent>
-            <Typography variant="body2" className="mb-4">
-              Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently removed.
-            </Typography>
-            <Alert severity="warning">
-              This will permanently delete all your budgets, transactions, and account data.
-            </Alert>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setDeleteDialogOpen(false)}>
-              Cancel
-            </Button>
-            <Button onClick={handleDeleteAccount} color="error" variant="contained">
-              Delete Account
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Box>
-    </DashboardLayout>
+          {/* Account Management */}
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              Account Management
+            </h2>
+            <div className="space-y-3">
+              <button className="w-full flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <div className="flex items-center">
+                  <LogOutIcon className="h-5 w-5 mr-3 text-gray-600" />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-gray-900">Log Out</p>
+                    <p className="text-xs text-gray-600">
+                      Sign out of your account
+                    </p>
+                  </div>
+                </div>
+                <span className="text-gray-400">→</span>
+              </button>
+              <button className="w-full flex items-center justify-between p-4 border border-red-200 rounded-lg hover:bg-red-50 transition-colors">
+                <div className="flex items-center">
+                  <TrashIcon className="h-5 w-5 mr-3 text-red-600" />
+                  <div className="text-left">
+                    <p className="text-sm font-medium text-red-600">
+                      Delete Account
+                    </p>
+                    <p className="text-xs text-red-600">
+                      Permanently delete your account
+                    </p>
+                  </div>
+                </div>
+                <span className="text-red-400">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

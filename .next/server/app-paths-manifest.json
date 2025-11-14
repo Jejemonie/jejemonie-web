@@ -1,6 +1,10 @@
 {
-  "/dashboard/page": "app/dashboard/page.js",
   "/page": "app/page.js",
-  "/budget/page": "app/budget/page.js",
-  "/integrations/page": "app/integrations/page.js"
+  "/login/page": "app/login/page.js",
+  "/profile/page": "app/profile/page.js",
+  "/settings/page": "app/settings/page.js",
+  "/(dashboard)/dashboard/page": "app/(dashboard)/dashboard/page.js",
+  "/(dashboard)/budget/page": "app/(dashboard)/budget/page.js",
+  "/(dashboard)/connect/page": "app/(dashboard)/connect/page.js",
+  "/(dashboard)/integrations/page": "app/(dashboard)/integrations/page.js"
 }
