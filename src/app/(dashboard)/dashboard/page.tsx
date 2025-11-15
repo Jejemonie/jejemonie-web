@@ -2,19 +2,11 @@
 
 import { useState } from 'react'
 import {
-  DollarSign,
-  TrendingUp,
-  TrendingDown,
-  CreditCard,
-  Calendar,
-  PieChart,
-} from 'lucide-react'
-import {
-  LineChart,
-  Line,
   BarChart,
   Bar,
-  PieChart as RechartsPieChart,
+  LineChart,
+  Line,
+  PieChart,
   Pie,
   Cell,
   XAxis,
@@ -47,11 +39,13 @@ function MetricCard({ title, value, change, icon, trend }: MetricCardProps) {
             trend === 'up' ? 'text-green-600' : 'text-red-600'
           }`}
         >
-          {trend === 'up' ? (
-            <TrendingUp className="h-4 w-4" />
-          ) : (
-            <TrendingDown className="h-4 w-4" />
-          )}
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {trend === 'up' ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+            )}
+          </svg>
           <span>{Math.abs(change)}%</span>
         </div>
       </div>
@@ -170,28 +164,28 @@ export default function DashboardPage() {
             value={metrics.transactions}
             change={12}
             trend="up"
-            icon={<CreditCard className="h-6 w-6" />}
+            icon={<svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>}
           />
           <MetricCard
             title="Total Spending"
             value={metrics.totalSpending}
             change={5}
             trend="down"
-            icon={<DollarSign className="h-6 w-6" />}
+            icon={<svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" /></svg>}
           />
           <MetricCard
             title="Total Income"
             value={metrics.totalIncome}
             change={8}
             trend="up"
-            icon={<TrendingUp className="h-6 w-6" />}
+            icon={<svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg>}
           />
           <MetricCard
             title="Budget Used"
             value={metrics.budgetUsed}
             change={3}
             trend="up"
-            icon={<PieChart className="h-6 w-6" />}
+            icon={<svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z" /></svg>}
           />
         </div>
 
@@ -201,7 +195,9 @@ export default function DashboardPage() {
               <h2 className="text-lg font-semibold text-gray-900">
                 Income vs Spending
               </h2>
-              <Calendar className="h-5 w-5 text-gray-400" />
+              <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
             </div>
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={getChartData()}>
@@ -231,7 +227,7 @@ export default function DashboardPage() {
               Spending by Category
             </h2>
             <ResponsiveContainer width="100%" height={300}>
-              <RechartsPieChart>
+              <PieChart>
                 <Pie
                   data={categoryData}
                   cx="50%"
@@ -246,7 +242,7 @@ export default function DashboardPage() {
                   ))}
                 </Pie>
                 <Tooltip />
-              </RechartsPieChart>
+              </PieChart>
             </ResponsiveContainer>
             <div className="mt-4 space-y-2">
               {categoryData.map((category, index) => (
