@@ -1,8 +1,14 @@
 import './globals.css'
 import { Manrope } from 'next/font/google'
-import { Navbar } from '@/components/Navbar'
+import { Navbar } from '@/app/(pages)/(landing)/components/Navbar'
+import localFont from 'next/font/local'
+
 
 const manrope = Manrope({ subsets: ['latin'] })
+
+const Mouser = localFont({
+  src: './fonts/Mouser.woff2',
+})
 
 export const metadata = {
   title: 'Manayja',
@@ -19,7 +25,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={manrope.className} suppressHydrationWarning={true}>
+      <body className={`${Mouser.className} ${manrope.className}`} suppressHydrationWarning={true}>
         <Navbar />
         <main>{children}</main>
       </body>

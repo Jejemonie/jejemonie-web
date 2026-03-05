@@ -1,7 +1,8 @@
-'use client'
+"use client";
 
-import { Hero } from '@/components/Hero'
+import { Hero } from "@/app/(pages)/(landing)/components/Hero";
 
 export default function HomePage() {
-  return <Hero />
+  return <Hero />;
 }
+

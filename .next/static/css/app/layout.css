@@ -58,6 +58,17 @@
 }.__className_73ee6c {font-family: '__Manrope_73ee6c', '__Manrope_Fallback_73ee6c';font-style: normal
 }
 
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[3].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[14].oneOf[3].use[2]!./node_modules/next/font/local/target.css?{"path":"app/layout.tsx","import":"","arguments":[{"src":"./fonts/Mouser.woff2"}],"variableName":"Mouser"} ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+@font-face {
+font-family: '__Mouser_9b7242';
+src: url(/_next/static/media/3d3e9b88f316f6a0-s.p.woff2) format('woff2');
+font-display: swap;
+}@font-face {font-family: '__Mouser_Fallback_9b7242';src: local("Arial");ascent-override: 99.95%;descent-override: 34.79%;line-gap-override: 2.65%;size-adjust: 119.73%
+}.__className_9b7242 {font-family: '__Mouser_9b7242', '__Mouser_Fallback_9b7242'
+}
+
 /*!*************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[14].oneOf[12].use[3]!./app/globals.css ***!
   \*************************************************************************************************************************************************************************************************************************************************************/
@@ -655,14 +666,14 @@ video {
 .h-6 {
   height: 1.5rem;
 }
-.h-full {
-  height: 100%;
-}
 .h-7 {
   height: 1.75rem;
 }
 .h-9 {
   height: 2.25rem;
+}
+.h-full {
+  height: 100%;
 }
 .min-h-screen {
   min-height: 100vh;
@@ -1135,3 +1146,5 @@ video {
     padding-right: 2rem;
   }
 }
+
+

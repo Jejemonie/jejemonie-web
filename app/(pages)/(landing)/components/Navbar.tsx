@@ -14,7 +14,7 @@ export function Navbar() {
         {/* Left: Logo + Nav Links in pill */}
         <div className="hidden md:flex items-center gap-8 bg-white rounded-2xl px-6 py-3 shadow-sm">
           <a href="/" className="flex items-center">
-            <img src="/manayjalogo.svg" alt="Manayja" width="120" height="40" className="h-10" />
+            <img src="/manayjalogo.svg" alt="Manayja"  className="h-10" />
           </a>
 
           <div className="flex items-center gap-6">
