@@ -1,66 +1,137 @@
-import { TrendingUp, BarChart3, Bell, Link, RefreshCw, Shield } from 'lucide-react'
+import AnimateLeft from "@/app/components/Animation/AnimateLeft";
+import { motion } from "framer-motion";
+import {
+  TrendingUp,
+  BarChart3,
+  Bell,
+  Link,
+  RefreshCw,
+  Shield,
+} from "lucide-react";
+
+const features = [
+  {
+    icon: TrendingUp,
+    tag: "01",
+    title: "AI-Powered Insights",
+    description:
+      "Your money has a story. We help you read it spotting patterns, flagging habits, and nudging you toward goals that actually stick.",
+    highlight: "Personalized to you",
+  },
+  {
+    icon: BarChart3,
+    tag: "02",
+    title: "Advanced Analytics",
+    description:
+      "No more squinting at spreadsheets. Beautiful charts that make your financial health feel less like homework and more like progress.",
+    highlight: "Clear at a glance",
+  },
+  {
+    icon: Bell,
+    tag: "03",
+    title: "Smart Alerts",
+    description:
+      "We tap you on the shoulder before things get messy unusual charges, upcoming bills, budget wins worth celebrating.",
+    highlight: "Always heads-up",
+  },
+  {
+    icon: Link,
+    tag: "04",
+    title: "Seamless Integrations",
+    description:
+      "Your accounts, cards, and wallets all talking to each other. One dashboard. Zero tab-switching. Total clarity.",
+    highlight: "Everything, one place",
+  },
+  {
+    icon: RefreshCw,
+    tag: "05",
+    title: "Auto-Categorization",
+    description:
+      "Every transaction sorted the moment it lands. Coffee, rent, that impulse buy filed away so you don't have to think twice.",
+    highlight: "Works while you sleep",
+  },
+  {
+    icon: Shield,
+    tag: "06",
+    title: "Bank-Level Security",
+    description:
+      "Enterprise-grade encryption, always on. Your data stays yours private, protected, and never sold.",
+    highlight: "Locked tight",
+  },
+];
 
 export function Features() {
-  const features = [
-    {
-      icon: <TrendingUp className="h-6 w-6" />,
-      title: 'AI-Powered Insights',
-      description: 'Get personalized recommendations and insights based on your spending patterns and financial goals.',
-    },
-    {
-      icon: <BarChart3 className="h-6 w-6" />,
-      title: 'Advanced Analytics',
-      description: 'Visualize your financial health with intuitive charts and detailed breakdowns of your spending habits.',
-    },
-    {
-      icon: <Bell className="h-6 w-6" />,
-      title: 'Smart Alerts',
-      description: 'Receive timely notifications about unusual transactions, upcoming bills, and budget milestones.',
-    },
-    {
-      icon: <Link className="h-6 w-6" />,
-      title: 'Seamless Integrations',
-      description: 'Connect with your bank accounts, credit cards, and other financial services for a unified view.',
-    },
-    {
-      icon: <RefreshCw className="h-6 w-6" />,
-      title: 'Automated Categorization',
-      description: 'Our AI automatically categorizes your transactions, saving you time and ensuring accuracy.',
-    },
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: 'Bank-Level Security',
-      description: 'Rest easy knowing your financial data is protected with enterprise-grade encryption and security.',
-    },
-  ]
-
   return (
-    <div className="bg-accent py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-primary mb-4">
-            Powered by Intelligence
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Our AI-driven platform transforms how you track, analyze, and
-            optimize your budget.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow"
-            >
-              <div className="h-12 w-12 bg-orange rounded-lg flex items-center justify-center mb-4 text-white">
-                {feature.icon}
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
-              <p className="text-gray-600">{feature.description}</p>
+    <section className="bg-black py-24 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Header */}
+        <AnimateLeft>
+          <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+            <div>
+              <span className="inline-block text-orange font-mouser text-sm tracking-widest uppercase mb-3">
+                What we do
+              </span>
+              <h2 className="font-mouser text-4xl md:text-5xl text-white leading-tight">
+                Built for real life,
+                <br />
+                not spreadsheets.
+              </h2>
             </div>
-          ))}
+            <p className="text-white/40 font-montserrat max-w-sm text-base leading-relaxed md:text-right">
+              Six features working quietly behind the scenes so you can stay
+              focused on what matters.
+            </p>
+          </div>
+        </AnimateLeft>
+
+        {/* Feature Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10 rounded-2xl overflow-hidden border border-black/10">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{
+                  duration: 1,
+                  ease: "easeInOut",
+                  delay: index * 0.2,
+                }}
+                viewport={{ once: true }}
+                className="group bg-orange hover:bg-white transition-colors duration-300 p-8 flex flex-col gap-5 relative cursor-pointer"
+              >
+                {/* Top row: icon + number */}
+                <div className="flex items-center justify-between">
+                  <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-black group-hover:text-white group-hover:bg-orange transition-colors duration-300">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <span className="font-mouser text-xs text-blue/20 group-hover:text-orange/40 transition-colors duration-300 tracking-wider">
+                    {feature.tag}
+                  </span>
+                </div>
+
+                {/* Text */}
+                <div className="flex flex-col gap-2">
+                  <h3 className="font-montserrat font-semibold text-white group-hover:text-black text-lg leading-snug">
+                    {feature.title}
+                  </h3>
+                  <p className="font-montserrat text-white group-hover:text-gray-500 text-sm leading-relaxed">
+                    {feature.description}
+                  </p>
+                </div>
+
+                {/* Highlight pill */}
+                <div className="mt-auto">
+                  <span className="inline-block font-montserrat text-xs font-medium text-white group-hover:text-orange group-hover:bg-orange/10 bg-black/10 px-3 py-1 rounded-full">
+                    {feature.highlight}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
-    </div>
-  )
+    </section>
+  );
 }

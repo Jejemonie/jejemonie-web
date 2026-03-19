@@ -2,3 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  
+}
+
+@theme inline{
+  --font-mouser: 'Mouser', sans-serif;
+  --font-manrope: 'Manrope', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+}

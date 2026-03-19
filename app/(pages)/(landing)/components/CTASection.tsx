@@ -1,86 +1,132 @@
-'use client'
+"use client";
 
-import { useRouter } from 'next/navigation'
-import { ArrowRight } from 'lucide-react'
+import { useRouter } from "next/navigation";
+import { ArrowRight, Sparkles, Clock } from "lucide-react";
+import { motion } from "framer-motion";
+
+const perks = [
+  { label: "Free forever plan" },
+  { label: "No credit card needed" },
+  { label: "Set up in under 2 minutes" },
+];
 
 export function CTASection() {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
-    <div className="bg-orange py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-bold text-white mb-6">
-              Start Your Financial Journey Today
-            </h2>
-            <p className="text-xl text-accent mb-8">
-              Join thousands of users who have transformed their financial
-              health with our AI-powered budget tracking platform.
+    <section className="bg-orange py-24 overflow-hidden rounded-t-[90px]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          {/* Left — copy + actions */}
+          <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1, ease: "easeOut", delay: 1 }}
+      viewport={{ once: true }}
+          className="flex flex-col gap-8">
+            <div>
+              <span className="inline-block text-accent font-mouser text-sm tracking-widest uppercase mb-4">
+                Get started
+              </span>
+              <h2 className="font-mouser text-4xl md:text-5xl text-white leading-tight">
+                Your finances,
+                <br />
+                finally under control.
+              </h2>
+            </div>
+
+            <p className="font-manrope text-white text-base leading-relaxed max-w-md">
+              Manayja is just getting started — and so is the best time to jump
+              in. Be among the first to shape how it works, and take control of
+              your money while you're at it.
             </p>
-            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+
+            {/* Perks */}
+            <ul className="flex flex-col gap-2">
+              {perks.map((perk, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-3 font-manrope text-sm text-white"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                  {perk.label}
+                </li>
+              ))}
+            </ul>
+
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-3">
               <button
-                onClick={() => router.push('/signup')}
-                className="bg-white text-orange hover:bg-accent text-lg py-3 px-8 rounded-lg font-medium transition-colors"
+                onClick={() => router.push("/signup")}
+                className="group bg-white text-orange hover:bg-accent/90 font-montserrat font-semibold text-sm py-3.5 px-7 rounded-xl hover:-translate-y-1 ease-in-out transition-all duration-300 flex items-center justify-center gap-2"
               >
                 Create Free Account
+                <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>
               <button
-                onClick={() => router.push('/login')}
-                className="bg-primary text-white hover:opacity-90 text-lg py-3 px-8 rounded-lg font-medium transition-opacity flex items-center justify-center"
+                onClick={() => router.push("/login")}
+                className="bg-white/10 hover:bg-white/15 text-white font-montserrat font-semibold text-sm py-3.5 px-7 rounded-xl hover:-translate-y-1 ease-in-out transition-all duration-300 border border-white/10"
               >
-                <span>Sign In</span>
-                <ArrowRight className="ml-2 h-5 w-5" />
+                Sign In
               </button>
             </div>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow-lg">
-            <div className="text-center mb-6">
-              <h3 className="text-xl font-bold text-gray-900">
-                What Our Users Say
-              </h3>
+          </motion.div>
+
+          {/* Right — early access card */}
+          <div className="bg-white border border-white/10 rounded-2xl p-8 flex flex-col gap-8">
+            {/* Badge */}
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-orange flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <span className="font-mouser text-orange text-sm tracking-wide">
+                Early Access
+              </span>
             </div>
-            <div className="space-y-6">
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="text-gray-700 mb-3">
-                  "The AI recommendations helped me save an extra $350 per month
-                  that I didn't know was possible!"
-                </p>
-                <div className="flex items-center">
-                  <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center text-primary font-bold">
-                    JD
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-900">
-                      Jamie Doe
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      Personal Finance User
-                    </p>
-                  </div>
+
+            {/* Message */}
+            <div className="flex flex-col gap-3">
+              <h3 className="font-montserrat font-semibold text-orange text-xl leading-snug">
+                Be part of building something better.
+              </h3>
+              <p className="font-manrope text-orange text-sm leading-relaxed">
+                We're in early days — no inflated user counts, no fake
+                testimonials. Just a focused tool built to genuinely help you
+                manage money better. Your feedback will shape every feature that
+                comes next.
+              </p>
+            </div>
+
+            {/* What to expect */}
+            <div className="flex flex-col gap-3">
+              <p className="font-manrope text-xs font-semibold text-orange uppercase tracking-widest">
+                What to expect
+              </p>
+              {[
+                "A clean, distraction-free dashboard",
+                "AI insights that actually make sense",
+                "Direct line to the team building it",
+                "Features shaped by real user needs",
+              ].map((item, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-orange/80 flex-shrink-0" />
+                  <span className="font-manrope text-sm text-orange/80 leading-relaxed">
+                    {item}
+                  </span>
                 </div>
-              </div>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="text-gray-700 mb-3">
-                  "As a small business owner, this platform has completely
-                  transformed how I manage my company's finances."
-                </p>
-                <div className="flex items-center">
-                  <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center text-primary font-bold">
-                    TS
-                  </div>
-                  <div className="ml-3">
-                    <p className="text-sm font-medium text-gray-900">
-                      Taylor Smith
-                    </p>
-                    <p className="text-xs text-gray-500">Business Owner</p>
-                  </div>
-                </div>
-              </div>
+              ))}
+            </div>
+
+            {/* Footer note */}
+            <div className="mt-auto pt-5 border-t border-white/10 flex items-center gap-2">
+              <Clock className="w-4 h-4 text-orange/90 flex-shrink-0" />
+              <p className="font-manrope text-xs text-orange/90 leading-relaxed">
+                Early access is free. No commitments, cancel anytime.
+              </p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  )
+    </section>
+  );
 }
