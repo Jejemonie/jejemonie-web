@@ -1,1 +1,0 @@
-self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/ucheohanado/Desktop/PersonalDev/JejeTech/jejemonie-web/app/layout\":[\"static/media/4c9affa5bc8f420e-s.p.woff2\",\"static/media/904be59b21bd51cb-s.p.woff2\",\"static/media/3d3e9b88f316f6a0-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"

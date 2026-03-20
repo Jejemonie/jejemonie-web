@@ -1,3 +1,5 @@
+"use client";
+
 import AnimateLeft from "@/app/components/Animation/AnimateLeft";
 import { UserPlus, BellRing, Sparkles, BrainCircuit } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
