@@ -65,9 +65,8 @@ export function Footer() {
               {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
-                  <div className="hover:-translate-y-1 ease-in-out transition-all duration-300">
+                  <div key={social.label} className="hover:-translate-y-1 ease-in-out transition-all duration-300">
                     <a
-                      key={social.label}
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
