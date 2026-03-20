@@ -1,3 +1,5 @@
+"use client";
+
 import AnimateLeft from "@/app/components/Animation/AnimateLeft";
 import AnimateUp from "@/app/components/Animation/AnimateUp";
 import { motion } from "framer-motion";
