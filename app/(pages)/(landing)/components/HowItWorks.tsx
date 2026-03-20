@@ -47,7 +47,7 @@ export function HowItWorks() {
         <AnimateLeft>
           <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
-              <span className="inline-block text-orange font-mouser text-sm tracking-widest uppercase mb-3">
+              <span className="inline-block text-[#F87315] font-mouser text-sm tracking-widest uppercase mb-3">
                 How it works
               </span>
               <h2 className="font-mouser text-4xl md:text-5xl text-white leading-tight">
@@ -80,22 +80,22 @@ export function HowItWorks() {
                   delay: index * 0.2,
                 }}
                 viewport={{ once: true, margin: "-50px" }}
-                className={`group relative flex flex-col justify-between gap-8 border border-white/[0.08] hover:border-orange/30 rounded-3xl p-8 transition-all duration-300 overflow-hidden cursor-pointer ease-in-out
+                className={`group relative flex flex-col justify-between gap-8 border border-white/[0.08] hover:border-[#F87315]/30 rounded-3xl p-8 transition-all duration-300 overflow-hidden cursor-pointer ease-in-out
                   ${isLarge ? "md:col-span-1 min-h-64" : "min-h-56"}
                   bg-white/[0.03] hover:bg-white/[0.06]`}
               >
                 {/* Subtle corner glow on hover */}
-                <div className="pointer-events-none absolute -top-10 -right-10 w-40 h-40 rounded-full bg-orange/0 group-hover:bg-orange/8 transition-all duration-500 blur-2xl" />
+                <div className="pointer-events-none absolute -top-10 -right-10 w-40 h-40 rounded-full bg-[#F87315]/0 group-hover:bg-[#F87315]/8 transition-all duration-500 blur-2xl" />
 
                 {/* Top row */}
                 <div className="flex items-start justify-between">
                   {/* Icon box */}
-                  <div className="w-12 h-12 rounded-2xl bg-white/5 group-hover:bg-orange/15 border border-white/10 group-hover:border-orange/25 flex items-center justify-center transition-all duration-300">
-                    <Icon className="w-5 h-5 text-white group-hover:text-orange transition-colors duration-300" />
+                  <div className="w-12 h-12 rounded-2xl bg-white/5 group-hover:bg-[#F87315]/15 border border-white/10 group-hover:border-[#F87315]/25 flex items-center justify-center transition-all duration-300">
+                    <Icon className="w-5 h-5 text-white group-hover:text-[#F87315] transition-colors duration-300" />
                   </div>
 
                   {/* Step tag */}
-                  <span className="font-mouser text-[11px] tracking-widest text-white/15 group-hover:text-orange/40 transition-colors duration-300 uppercase pt-1">
+                  <span className="font-mouser text-[11px] tracking-widest text-white/15 group-hover:text-[#F87315]/40 transition-colors duration-300 uppercase pt-1">
                     {step.tag}
                   </span>
                 </div>
@@ -111,8 +111,8 @@ export function HowItWorks() {
 
                   {/* Detail pill */}
                   <div className="mt-3 inline-flex items-center gap-2 w-fit">
-                    <span className="w-1 h-1 rounded-full bg-orange/60" />
-                    <span className="font-montserrat text-xs text-orange/70 font-medium tracking-wide">
+                    <span className="w-1 h-1 rounded-full bg-[#F87315]/60" />
+                    <span className="font-montserrat text-xs text-[#F87315]/70 font-medium tracking-wide">
                       {step.detail}
                     </span>
                   </div>

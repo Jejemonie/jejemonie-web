@@ -53,7 +53,7 @@ export function Hero() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, ease: "easeInOut", delay: 1.2 }}
                 viewport={{ once: true }}
-                className="font-semibold bg-orange/30 px-1"
+                className="font-semibold bg-[#F87315]/30 px-1"
               >
                 Track your spending
               </motion.span>

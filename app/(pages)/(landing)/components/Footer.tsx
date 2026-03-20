@@ -42,7 +42,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-orange ">
+    <footer className="bg-[#F87315] ">
       {/* Main footer body */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-16 pb-10">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-10">

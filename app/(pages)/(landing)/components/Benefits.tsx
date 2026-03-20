@@ -26,8 +26,8 @@ const benefitGroups = [
     tag: "02",
     title: "For Families",
     subtitle: "Everyone on the same page.",
-    accent: "bg-orange text-white",
-    pill: "bg-orange/10 text-orange",
+    accent: "bg-[#F87315] text-white",
+    pill: "bg-[#F87315]/10 text-[#F87315]",
     benefits: [
       "Coordinate finances across multiple family members",
       "Create shared savings goals and track progress",
@@ -62,7 +62,7 @@ export function Benefits() {
           <AnimateLeft>
             <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
               <div>
-                <span className="inline-block text-orange font-mouser text-sm tracking-widest uppercase mb-3">
+                <span className="inline-block text-[#F87315] font-mouser text-sm tracking-widest uppercase mb-3">
                   Who it's for
                 </span>
                 <h2 className="font-mouser text-4xl md:text-5xl text-primary leading-tight">
@@ -119,7 +119,7 @@ export function Benefits() {
                   <ul className="flex flex-col gap-3">
                     {group.benefits.map((benefit, idx) => (
                       <li key={idx} className="flex items-start gap-3">
-                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-orange flex-shrink-0" />
+                        <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#F87315] flex-shrink-0" />
                         <span className="font-montserrat text-sm text-gray-600 leading-relaxed">
                           {benefit}
                         </span>

@@ -70,16 +70,16 @@ export function Features() {
         <AnimateLeft>
           <div className="mb-20 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
-              <span className="inline-block text-orange font-mouser text-sm tracking-widest uppercase mb-3">
+              <span className="inline-block text-[#F87315] font-mouser text-sm tracking-widest uppercase mb-3">
                 What we do
               </span>
-              <h2 className="font-mouser text-4xl md:text-5xl text-white leading-tight">
+              <h2 className="font-mouser text-4xl md:text-5xl text-[#FFF7ED] leading-tight">
                 Built for real life,
                 <br />
                 not spreadsheets.
               </h2>
             </div>
-            <p className="text-white/40 font-montserrat max-w-sm text-base leading-relaxed md:text-right">
+            <p className="text-[#FFF7ED]/40 font-montserrat max-w-sm text-base leading-relaxed md:text-right">
               Six features working quietly behind the scenes so you can stay
               focused on what matters.
             </p>
@@ -101,14 +101,14 @@ export function Features() {
                   delay: index * 0.2,
                 }}
                 viewport={{ once: true }}
-                className="group bg-orange hover:bg-white transition-colors duration-300 p-8 flex flex-col gap-5 relative cursor-pointer"
+                className="group bg-[#F87315] hover:bg-[#FFF7ED] transition-colors duration-300 p-8 flex flex-col gap-5 relative cursor-pointer"
               >
                 {/* Top row: icon + number */}
                 <div className="flex items-center justify-between">
-                  <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-black group-hover:text-white group-hover:bg-orange transition-colors duration-300">
+                  <div className="w-11 h-11 rounded-xl bg-white flex items-center justify-center text-black group-hover:text-white group-hover:bg-[#F87315] transition-colors duration-300">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="font-mouser text-xs text-blue/20 group-hover:text-orange/40 transition-colors duration-300 tracking-wider">
+                  <span className="font-mouser text-xs text-blue/20 group-hover:text-[#F87315]/40 transition-colors duration-300 tracking-wider">
                     {feature.tag}
                   </span>
                 </div>
@@ -125,7 +125,7 @@ export function Features() {
 
                 {/* Highlight pill */}
                 <div className="mt-auto">
-                  <span className="inline-block font-montserrat text-xs font-medium text-white group-hover:text-orange group-hover:bg-orange/10 bg-black/10 px-3 py-1 rounded-full">
+                  <span className="inline-block font-montserrat text-xs font-medium text-white group-hover:text-[#F87315] group-hover:bg-[#F87315]/10 bg-black/10 px-3 py-1 rounded-full">
                     {feature.highlight}
                   </span>
                 </div>

@@ -45,7 +45,7 @@ export function Navbar() {
 
         {/* Right: Auth Buttons */}
         <div className="hidden md:flex items-center gap-3">
-          <button className="px-5 py-2.5 bg-orange text-white text-sm font-semibold rounded-full hover:bg-orange/70 hover:text-white hover:-translate-y-1 ease-in-out transition-all duration-300">
+          <button className="px-5 py-2.5 bg-[#F87315] text-white text-sm font-semibold rounded-full hover:bg-[#F87315]/70 hover:text-white hover:-translate-y-1 ease-in-out transition-all duration-300">
             Sign Up
           </button>
           <button className="px-5 py-2.5 shadow text-[#021A24] text-sm font-medium rounded-full hover:-translate-y-1 ease-in-out transition-all duration-300 ">
